@@ -158,11 +158,11 @@ app.get('/secured/ping', function(req, res) {
   //console.log(req.user.sub);
 });
 
-var port = process.env.PORT || 3001;
+//var port = process.env.PORT || 3001;
 
-http.createServer(app).listen(port, function (err) {
-  console.log('listening in http://localhost:' + port);
-});
+// http.createServer(app).listen(port, function (err) {
+//   console.log('listening in http://localhost:' + port);
+// });
 
 module.exports = app;
 
