@@ -138,31 +138,32 @@ app.use('/secured', authenticate);
 
 app.get('/ping', function(req, res) {
   res.send("All good. You don't need to be authenticated to call this");
-  console.log("logging works");
+});
+
+function getData(user_id, res){
+	//console.log("getting data..");
+	//
+	// db.one("SELECT fav_genre AS value FROM user_genres WHERE user_id = $1", user_id )
+ //    .then(function (data) {
+ //        console.log("Favorite Genre:", data.value);
+ //        res.writeHead(200, {"Accept": "text/html"});
+ //        res.end(data.value);
+ //    })
+ //    .catch(function (error) {
+ //        console.log("ERROR:", error);
+ //    });
+ console.log("logging works");
   pg.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
   console.log('Connected to postgres! Getting schemas...');
 
   client
-    .query('SELECT table_schema,table_name FROM information_schema.tables;')
-    .on('row', function(row) {
-      console.log(JSON.stringify(row));
+    .query('SELECT fav_genre AS value FROM user_genres WHERE user_id = $1', user_id, function(row) {
+      //console.log(JSON.stringify(row));
+      res.writeHead(200, {"Accept": "text/html"});
+      res.end(result.value);
     });
   });
-});
-
-function getData(user_id, res){
-	console.log("getting data..");
-	//
-	db.one("SELECT fav_genre AS value FROM user_genres WHERE user_id = $1", user_id )
-    .then(function (data) {
-        console.log("Favorite Genre:", data.value);
-        res.writeHead(200, {"Accept": "text/html"});
-        res.end(data.value);
-    })
-    .catch(function (error) {
-        console.log("ERROR:", error);
-    });
 
 
 };
