@@ -160,7 +160,7 @@ function getData(user_id, res){
   client
     .query('SELECT * FROM user_data', function(err, result) {
       console.log(JSON.stringify(result));
-      done();
+      //done();
 
       if(err) {
         return console.error('error running query', err);
