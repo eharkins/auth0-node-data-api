@@ -159,6 +159,7 @@ function getData(user_id, res){
 
   client
     .query('SELECT fav_genre FROM user_data WHERE user_id = $1', user_id, function(err, result) {
+      console.log("STRINGIFIED:");
       console.log(JSON.stringify(result));
       //done();
 
@@ -167,7 +168,8 @@ function getData(user_id, res){
       }
       res.writeHead(200, {"Accept": "text/html"});
       res.end(JSON.stringify(result));
-      //console.log(result.value);
+      console.log("NON-STRINGIFIED:");
+      console.log(result);
     });
   });
 
