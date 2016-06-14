@@ -138,6 +138,7 @@ app.use('/secured', authenticate);
 
 app.get('/ping', function(req, res) {
   res.send("All good. You don't need to be authenticated to call this");
+  console.log("logging works");
   pg.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
   console.log('Connected to postgres! Getting schemas...');
