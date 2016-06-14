@@ -30,17 +30,7 @@ pg.defaults.ssl = true;
 // var db = pgp("postgresql://eli:purpleZebra@localhost:5432/mydb");
 
 
-pg.defaults.ssl = true;
-pg.connect(process.env.DATABASE_URL, function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
 
-  client
-    .query('SELECT table_schema,table_name FROM information_schema.tables;')
-    .on('row', function(row) {
-      console.log(JSON.stringify(row));
-    });
-});
 
 
 /// THIS BREAKS ON finally function:
@@ -148,6 +138,16 @@ app.use('/secured', authenticate);
 
 app.get('/ping', function(req, res) {
   res.send("All good. You don't need to be authenticated to call this");
+  pg.connect(process.env.DATABASE_URL, function(err, client) {
+  if (err) throw err;
+  console.log('Connected to postgres! Getting schemas...');
+
+  client
+    .query('SELECT table_schema,table_name FROM information_schema.tables;')
+    .on('row', function(row) {
+      console.log(JSON.stringify(row));
+    });
+  });
 });
 
 function getData(user_id, res){
