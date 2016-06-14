@@ -158,8 +158,7 @@ function getData(user_id, res){
   console.log('Connected to postgres! Getting schemas...');
 
   client
-    .query('SELECT fav_genre FROM user_data WHERE user_id = $1', user_id, function(err, result) {
-      console.log("STRINGIFIED:");
+    .query('SELECT * FROM user_data', function(err, result) {
       console.log(JSON.stringify(result));
       //done();
 
@@ -168,8 +167,7 @@ function getData(user_id, res){
       }
       res.writeHead(200, {"Accept": "text/html"});
       res.end(JSON.stringify(result));
-      console.log("NON-STRINGIFIED:");
-      console.log(result);
+      //console.log(result.value);
     });
   });
 
