@@ -159,14 +159,14 @@ function getData(user_id, res){
 
   client
     .query('SELECT fav_genre FROM user_data WHERE user_id = $1', ['google-oauth2|106856020067738921396'], function(err, result) {
-      console.log(result.rows[0]);
+      console.log(JSON.stringify(result.rows[0]));
       //done();
 
       if(err) {
         return console.error('error running query', err);
       }
       res.writeHead(200, {"Accept": "text/html"});
-      res.end(result.rows[0]);
+      res.end(JSON.stringify(result));
       //console.log(result);
     });
   });
