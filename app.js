@@ -158,16 +158,16 @@ function getData(user_id, res){
   console.log('Connected to postgres! Getting schemas...');
 
   client
-    .query('SELECT fav_genre FROM user_data', function(err, result) {
-      console.log(JSON.stringify(result));
+    .query('SELECT fav_genre AS value FROM user_data', function(err, result) {
+      console.log(JSON.stringify(result.value));
       //done();
 
       if(err) {
         return console.error('error running query', err);
       }
       res.writeHead(200, {"Accept": "text/html"});
-      res.end(JSON.stringify(result));
-      //console.log(result.value);
+      res.end(JSON.stringify(result.value));
+      console.log(result.value);
     });
   });
 
