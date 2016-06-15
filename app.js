@@ -174,7 +174,7 @@ function getData(user_id, res){
 
 };
 
-app.get('/getUserData/favGenre', function(req, res) {
+app.get('/secured/getFavGenre', function(req, res) {
   //res.status(200).send("All good. You only get this message if you're authenticated");
   getData(req.user.sub, res);
   //console.log(req.user.sub);
