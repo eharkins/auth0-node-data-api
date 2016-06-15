@@ -158,8 +158,8 @@ function getData(user_id, res){
   console.log('Connected to postgres! Getting schemas...');
 
   client
-    .query('SELECT fav_genre FROM user_data WHERE user_id = $1', ['google-oauth2|106856020067738921396'], function(err, result) {
-      console.log(JSON.stringify(result.rows[0]));
+    .query('SELECT fav_genre FROM user_data WHERE user_id = $1', user_id, function(err, result) {
+      console.log(JSON.stringify(result.rows[0].));
       //done();
 
       if(err) {
