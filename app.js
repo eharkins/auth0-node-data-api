@@ -158,7 +158,7 @@ function getData(user_id, res){
   console.log('Connected to postgres! Getting schemas...');
 
   client
-    .query('SELECT * FROM user_data', function(err, result) {
+    .query('SELECT fav_genre FROM user_data', function(err, result) {
       console.log(JSON.stringify(result));
       //done();
 
