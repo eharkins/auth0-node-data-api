@@ -206,10 +206,10 @@ app.get('/secured/getFavGenre', function(req, res) {
 
 app.get('/secured/addSong', function(req, res) {
   //res.status(200).send("All good. You only get this message if you're authenticated");
-  // var song = req.params.song;
+  var song = req.song;
   // console.log(song);
   res.writeHead(200);
-  res.end("SUCCESS");
+  res.end(song);
   //addSong(req.user.sub, song, res);
 });
 
