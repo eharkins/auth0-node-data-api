@@ -140,7 +140,7 @@ app.get('/ping', function(req, res) {
   res.send("All good. You don't need to be authenticated to call this");
 });
 
-function getData(user_id, res){
+function getGenre(user_id, res){
 	//console.log("getting data..");
 	//
 	// db.one("SELECT fav_genre AS value FROM user_genres WHERE user_id = $1", user_id )
@@ -174,9 +174,41 @@ function getData(user_id, res){
 
 };
 
+function addSong(user_id, song, res){
+
+ console.log("logging works");
+  pg.connect(process.env.DATABASE_URL, function(err, client) {
+  if (err) throw err;
+  console.log('Connected to postgres! Getting schemas...');
+
+  client
+    .query('UPDATE user_data SET fav_songs = $1 WHERE user_id = $2', [song, user_id], function(err, result) {
+      console.log(result.rows[0].value);
+      //done();
+
+      if(err) {
+        return console.error('error running query', err);
+      }
+      res.writeHead(200, {"Accept": "text/html"});
+      res.end(result.rows[0].value);
+      //console.log(result);
+    });
+  });
+
+
+};
+
 app.get('/secured/getFavGenre', function(req, res) {
   //res.status(200).send("All good. You only get this message if you're authenticated");
-  getData(req.user.sub, res);
+  getGenre(req.user.sub, res);
+  //console.log(req.user.sub);
+});
+
+app.get('/secured/addSong', function(req, res) {
+  //res.status(200).send("All good. You only get this message if you're authenticated");
+  var song = req.params.song;
+  console.log(song);
+  //addSong(req.user.sub, song, res);
   //console.log(req.user.sub);
 });
 
