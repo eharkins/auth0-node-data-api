@@ -207,7 +207,7 @@ app.get('/secured/getFavGenre', function(req, res) {
 app.post('/secured/addSong', function(req, res) {
   //res.status(200).send("All good. You only get this message if you're authenticated");
   var song = JSON.stringify(req.song);
-  console.log(req);
+  console.log(JSON.stringify(req.body));
   res.writeHead(200);
   res.end(JSON.stringify(req.body));
   //addSong(req.user.sub, song, res);
