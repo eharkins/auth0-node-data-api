@@ -185,14 +185,14 @@ function addSong(user_id, song, res){
 
   client
     .query('UPDATE user_data SET fav_songs = $1 WHERE user_id = $2', [song, user_id], function(err, result) {
-      console.log(result);
+      console.log(JSON.stringify(result));
       //done();
 
       if(err) {
         return console.error('error running query', err);
       }
       res.writeHead(200, {"Accept": "text/html"});
-      res.end(result);
+      res.end(JSON.stringify.result);
       //console.log(result);
     });
   });
