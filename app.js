@@ -108,7 +108,7 @@ var router = express.Router();
 app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -207,11 +207,12 @@ app.get('/secured/getFavGenre', function(req, res) {
 });
 
 app.post('/secured/addSong', function(req, res) {
-  //res.status(200).send("All good. You only get this message if you're authenticated");
   //var song = JSON.stringify(req.song);
-  console.log(JSON.stringify(req.body.song));
+  console.log("REQUEST:" + JSON.stringify(req));
+  console.log("REQUEST.BODY" + JSON.stringify(req.body));
+  //console.log(JSON.stringify(req.body.song));
   res.writeHead(200);
-  res.end(JSON.stringify(req.body.song));
+  res.end("THIS WORKS");//JSON.stringify(req.body.song));
   //addSong(req.user.sub, song, res);
 });
 
