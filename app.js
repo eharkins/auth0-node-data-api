@@ -209,7 +209,7 @@ app.post('/secured/addSong', function(req, res) {
   var song = JSON.stringify(req.song);
   console.log(req);
   res.writeHead(200);
-  res.end(req.body);
+  res.end(JSON.stringify(req.body));
   //addSong(req.user.sub, song, res);
 });
 
