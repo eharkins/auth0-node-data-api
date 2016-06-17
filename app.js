@@ -209,7 +209,7 @@ app.get('/secured/getFavGenre', function(req, res) {
 app.post('/secured/addSong', function(req, res) {
   //var song = JSON.stringify(req.song);
   console.log(req);
-  console.log("REQUEST.BODY" + JSON.stringify(req.body));
+  console.log("REQUEST.BODY.song: " + JSON.stringify(req.body.song));
   //console.log(JSON.stringify(req.body.song));
   res.writeHead(200);
   res.end("THIS WORKS");//JSON.stringify(req.body.song));
