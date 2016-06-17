@@ -192,7 +192,7 @@ function addSong(user_id, song, res){
         return console.error('error running query', err);
       }
       res.writeHead(200, {"Accept": "text/html"});
-      res.end(song);
+      res.end(song.replace(/\"/g, ""));
       //console.log(result);
     });
   });
