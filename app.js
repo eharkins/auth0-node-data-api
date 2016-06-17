@@ -192,7 +192,7 @@ function addSong(user_id, song, res){
         return console.error('error running query', err);
       }
       res.writeHead(200, {"Accept": "text/html"});
-      res.end(JSON.stringify(song));
+      res.end(song);
       //console.log(result);
     });
   });
