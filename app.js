@@ -102,14 +102,26 @@ pg.defaults.ssl = true;
 
 
 
+var app = express();
+var router = express.Router();
 
+app.use(cors());
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(__dirname + '/public/favicon.ico'));
 
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var app = express();
-var router = express.Router();
+
 
 dotenv.load();
 
@@ -118,18 +130,8 @@ var authenticate = jwt({
   audience: process.env.AUTH0_CLIENT_ID
 });
 
-app.use(cors());
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(express.urlencoded());
+//app.use(express.urlencoded());
 
 app.use('/', routes);
 app.use('/users', users);
