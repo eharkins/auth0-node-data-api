@@ -157,7 +157,7 @@ function getGenre(user_id, res){
  console.log("logging works");
   pg.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
+  console.log('Connected to postgres! Getting data...');
 
   client
     .query('SELECT fav_genre as value FROM user_data WHERE user_id = $1', [user_id], function(err, result) {
@@ -178,10 +178,10 @@ function getGenre(user_id, res){
 
 function addSong(user_id, song, res){
 
- console.log("logging works");
+ console.log("addSong method executing");
   pg.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
+  console.log('Connected to postgres! Writing data...');
 
   client
     .query('UPDATE user_data SET fav_songs = $1 WHERE user_id = $2', [song, user_id], function(err, result) {
@@ -207,13 +207,12 @@ app.get('/secured/getFavGenre', function(req, res) {
 });
 
 app.post('/secured/addSong', function(req, res) {
-  //var song = JSON.stringify(req.song);
+  var song = JSON.stringify(req.body.song);
   //console.log(req);
   console.log("REQUEST.BODY.song: " + JSON.stringify(req.body.song));
-  //console.log(JSON.stringify(req.body.song));
-  res.writeHead(200);
-  res.end("Here is the new song: " + JSON.stringify(req.body.song));
-  //addSong(req.user.sub, song, res);
+  // res.writeHead(200);
+  // res.end("Here is the new song: " + JSON.stringify(req.body.song));
+  addSong(req.user.sub, song, res);
 });
 
 //var port = process.env.PORT || 3001;
