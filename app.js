@@ -142,6 +142,39 @@ app.get('/ping', function(req, res) {
   res.send("All good. You don't need to be authenticated to call this");
 });
 
+function getSongs(user_id, res){
+ 
+ console.log("getSong method executing");
+  pg.connect(process.env.DATABASE_URL, function(err, client) {
+  if (err) throw err;
+  console.log('Connected to postgres! Getting data...');
+
+  client
+    .query('SELECT songname as value FROM songs WHERE user_id = $1', [user_id], function(err, result) {
+      console.log(result.rows);
+      //done();
+      var i = 0;
+      var songs = [];
+      while (result.rows[i] )
+      {
+        songs[i] = result.rows[i].value;
+        i++;
+      }
+      var song_json = JSON.stringify({Songs:songs});
+      console.log(song_json);
+
+      if(err) {
+        return console.error('error running query', err);
+      }
+      res.writeHead(200, {"Accept": "application/json"});
+      res.end(song_json);
+      //console.log(result);
+    });
+  });
+
+
+};
+
 function getGenre(user_id, res){
 	//console.log("getting data..");
 	//
@@ -184,7 +217,7 @@ function addSong(user_id, song, res){
   console.log('Connected to postgres! Writing data...');
 
   client
-    .query('UPDATE user_data SET fav_songs = $1 WHERE user_id = $2', [song, user_id], function(err, result) {
+    .query('INSERT INTO songs VALUES (100, $1, $2)', [song, user_id], function(err, result) {
       console.log(JSON.stringify(result));
       //done();
 
@@ -199,6 +232,11 @@ function addSong(user_id, song, res){
 
 
 };
+
+app.get('/secured/getSongs', function(req, res){
+  console.log("getSongs");
+  getSongs(req.user.sub, res);
+});
 
 app.get('/secured/getFavGenre', function(req, res) {
   //res.status(200).send("All good. You only get this message if you're authenticated");
