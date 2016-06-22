@@ -151,8 +151,11 @@ function getSongs(user_id, res){
 
   client
     .query('SELECT songname as value FROM songs WHERE user_id = $1', [user_id], function(err, result) {
+      if(err) {
+        return console.error('error running query', err);
+      }
+
       console.log(result.rows);
-      //done();
       var i = 0;
       var songs = [];
       while (result.rows[i] )
@@ -163,11 +166,9 @@ function getSongs(user_id, res){
       var song_json = JSON.stringify({Songs:songs});
       console.log(song_json);
 
-      if(err) {
-        return console.error('error running query', err);
-      }
+      
       res.writeHead(200, {"Accept": "application/json"});
-      res.end(song_json);
+      res.json(song_json);
       //console.log(result);
     });
   });
