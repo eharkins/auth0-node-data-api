@@ -161,6 +161,7 @@ function getSongs(user_id, res){
       while (result.rows[i] )
       {
         songs[i] = result.rows[i].value;
+        console.log(result.rows[i].value);
         i++;
       }
       var song_json = JSON.stringify({Songs:songs});
@@ -168,7 +169,7 @@ function getSongs(user_id, res){
 
       
       res.writeHead(200, {"Accept": "application/json"});
-      res.json(song_json);
+      res.end(song_json);
       //console.log(result);
     });
   });
