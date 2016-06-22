@@ -251,7 +251,6 @@ app.post('/secured/addSong', function(req, res) {
   //console.log(req);
   console.log("REQUEST.BODY.song: " + song);
   // res.writeHead(200);
-  // res.end("Here is the new song: " + JSON.stringify(req.body.song));
   addSong(req.user.sub, song, res);
 });
 
