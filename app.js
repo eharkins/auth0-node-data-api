@@ -231,6 +231,8 @@ function addSong(user_id, song, res){
       //console.log(result);
     });
   });
+  
+  };
 
 function getPlays(user_id, res){
  
