@@ -260,8 +260,6 @@ function getPlays(user_id, res){
 };
 
 
-};
-
 app.get('/secured/getPlays', function(req, res){
   console.log("getPlays");
   getPlays(req.user.sub, res);
