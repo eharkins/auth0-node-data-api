@@ -305,7 +305,7 @@ function changeDisplayName(user_id, displayName, res){
 };
 
 
-app.get('/secured/changeDisplayName', function(req, res){
+app.post('/secured/changeDisplayName', function(req, res){
     console.log("changeDisplayName: ");
     var displayName = req.body.displayName;
     console.log(displayName);
