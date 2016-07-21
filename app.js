@@ -265,11 +265,11 @@ function changeDisplayName(user_id, displayName, res){
     var fullPath = '/api/v2/users/' + user_id;
     var options = {
       hostname: 'https://eliharkins.auth0.com',
-      //port:,
+      port: 0,
       path: fullPath,
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfX0sImlhdCI6MTQ2OTEzNzg2MiwianRpIjoiNmY3N2FkYzIyMDA1OWVjY2M4NzcyZjM3MzJjY2E1MWEifQ.dxRZ9zpz_MLcO3jzK1wsf9ISmBCXUmeY_fBGdGauiO8'
         //'Content-Length': Buffer.byteLength(postData)
       },
@@ -296,10 +296,11 @@ function changeDisplayName(user_id, displayName, res){
       console.log('problem with request: ' + e.message);
     });
 
-    // write data to request body
+    // write data to request body (for auth0 api call)
     req.write(postData);
     req.end();
 
+    //back to client
     res.writeHead(200, {"Accept": "text/html"});
     res.end(displayName);
 
