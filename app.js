@@ -264,7 +264,7 @@ function changeDisplayName(user_id, displayName, res){
     console.log(user_id);
     var fullPath = '/api/v2/users/' + user_id;
     var options = {
-      hostname: 'https://eliharkins.auth0.com'
+      hostname: 'https://eliharkins.auth0.com',
       //port: 80,
       path: fullPath,
       method: 'PATCH',
