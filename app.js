@@ -274,6 +274,7 @@ function changeDisplayName(user_id, displayName, res){
             "displayName": displayName
           }
         },
+        json: true,
         method: 'PATCH', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/json',
