@@ -265,7 +265,7 @@ function changeDisplayName(user_id, displayName, res){
 
     var options = {
       hostname: 'https://eliharkins.auth0.com'
-      port: 80,
+      //port: 80,
       path: '/api/v2/users/'+ user_id,
       method: 'PATCH',
       headers: {
