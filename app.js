@@ -273,7 +273,7 @@ function changeDisplayName(user_id, displayName, res){
           "user_metadata": {
             "displayName": displayName
           }
-        }
+        },
         method: 'PATCH', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/json',
