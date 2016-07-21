@@ -8,6 +8,7 @@ var dotenv = require('dotenv');
 var jwt = require('express-jwt');
 var cors = require('cors');
 var http = require('http');
+var request = require('request');
 
 var pg = require('pg');
 pg.defaults.ssl = true;
@@ -263,42 +264,64 @@ function changeDisplayName(user_id, displayName, res){
 
     console.log(user_id);
     var fullPath = '/api/v2/users/' + user_id;
-    var options = {
-      hostname: 'https://eliharkins.auth0.com',
-      port: 0,
-      path: fullPath,
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfX0sImlhdCI6MTQ2OTEzNzg2MiwianRpIjoiNmY3N2FkYzIyMDA1OWVjY2M4NzcyZjM3MzJjY2E1MWEifQ.dxRZ9zpz_MLcO3jzK1wsf9ISmBCXUmeY_fBGdGauiO8'
-        //'Content-Length': Buffer.byteLength(postData)
-      },
-      body: {
-        'user_metadata': {
-          'displayName': displayName
+
+    var fullURL = 'https://eliharkins.auth0.com' + fullPath;
+
+    request({
+        url: fullURL, //URL to hit
+        qs: {'user_metadata': {'displayName': displayName} }, //Query string data
+        method: 'PATCH', //Specify the method
+        headers: { //We can define headers too
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfX0sImlhdCI6MTQ2OTEzNzg2MiwianRpIjoiNmY3N2FkYzIyMDA1OWVjY2M4NzcyZjM3MzJjY2E1MWEifQ.dxRZ9zpz_MLcO3jzK1wsf9ISmBCXUmeY_fBGdGauiO8'
         }
-      }
-    };
-
-    var req = http.request(options, (res) => {
-      console.log('STATUS: ' + res.statusCode );
-      console.log('HEADERS: ' + JSON.stringify(res.headers) );
-      res.setEncoding('utf8');
-      res.on('data', (chunk) => {
-        console.log('BODY: ' + chunk);
-      });
-      res.on('end', () => {
-        console.log('No more data in response.')
-      })
+    }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        } else {
+            console.log(response.statusCode, body);
+        }
     });
 
-    req.on('error', (e) => {
-      console.log('problem with request: ' + e.message);
-    });
 
-    // write data to request body (for auth0 api call)
-    req.write(postData);
-    req.end();
+
+
+    // var options = {
+    //   hostname: 'https://eliharkins.auth0.com',
+    //   port: 0,
+    //   path: fullPath,
+    //   method: 'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfX0sImlhdCI6MTQ2OTEzNzg2MiwianRpIjoiNmY3N2FkYzIyMDA1OWVjY2M4NzcyZjM3MzJjY2E1MWEifQ.dxRZ9zpz_MLcO3jzK1wsf9ISmBCXUmeY_fBGdGauiO8'
+    //     //'Content-Length': Buffer.byteLength(postData)
+    //   },
+    //   body: {
+    //     'user_metadata': {
+    //       'displayName': displayName
+    //     }
+    //   }
+    // };
+
+    // var req = http.request(options, (res) => {
+    //   console.log('STATUS: ' + res.statusCode );
+    //   console.log('HEADERS: ' + JSON.stringify(res.headers) );
+    //   res.setEncoding('utf8');
+    //   res.on('data', (chunk) => {
+    //     console.log('BODY: ' + chunk);
+    //   });
+    //   res.on('end', () => {
+    //     console.log('No more data in response.')
+    //   })
+    // });
+
+    // req.on('error', (e) => {
+    //   console.log('problem with request: ' + e.message);
+    // });
+
+    // // write data to request body (for auth0 api call)
+    // req.write(postData);
+    // req.end();
 
     //back to client
     res.writeHead(200, {"Accept": "text/html"});
