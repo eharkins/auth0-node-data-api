@@ -271,7 +271,7 @@ function changeDisplayName(user_id, displayName, res){
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         //'Content-Length': Buffer.byteLength(postData)
-      }
+      },
       body: {
         'user_metadata': {
           'displayName': displayName
