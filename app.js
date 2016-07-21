@@ -261,12 +261,12 @@ function getPlays(user_id, res){
 
 function changeDisplayName(user_id, displayName, res){
 
-  
-
+    console.log(user_id);
+    var fullPath = '/api/v2/users/' + user_id;
     var options = {
       hostname: 'https://eliharkins.auth0.com'
       //port: 80,
-      path: '/api/v2/users/'+ user_id,
+      path: fullPath,
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -306,8 +306,9 @@ function changeDisplayName(user_id, displayName, res){
 
 
 app.get('/secured/changeDisplayName', function(req, res){
-    console.log("changeDisplayName");
+    console.log("changeDisplayName: ");
     var displayName = req.body.displayName;
+    console.log(displayName);
     changeDisplayName(req.user.sub, displayName, res);
 });
 
