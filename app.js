@@ -131,7 +131,6 @@ var authenticate = jwt({
 });
 
 
-//app.use(express.urlencoded());
 
 app.use('/', routes);
 app.use('/users', users);
@@ -177,10 +176,9 @@ function getSongs(user_id, res){
 
 };
 
-function getGenre(user_id, res){
-	//console.log("getting data..");
-	//
-	// db.one("SELECT fav_genre AS value FROM user_genres WHERE user_id = $1", user_id )
+//console.log("getting data..");
+  //
+  // db.one("SELECT fav_genre AS value FROM user_genres WHERE user_id = $1", user_id )
  //    .then(function (data) {
  //        console.log("Favorite Genre:", data.value);
  //        res.writeHead(200, {"Accept": "text/html"});
@@ -189,6 +187,9 @@ function getGenre(user_id, res){
  //    .catch(function (error) {
  //        console.log("ERROR:", error);
  //    });
+
+function getGenre(user_id, res){
+	
  console.log("logging works");
   pg.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
@@ -197,17 +198,14 @@ function getGenre(user_id, res){
   client
     .query('SELECT fav_genre as value FROM user_data WHERE user_id = $1', [user_id], function(err, result) {
       console.log(result.rows[0].value);
-      //done();
 
       if(err) {
         return console.error('error running query', err);
       }
       res.writeHead(200, {"Accept": "text/html"});
       res.end(result.rows[0].value);
-      //console.log(result);
     });
   });
-
 
 };
 
@@ -231,7 +229,7 @@ function addSong(user_id, song, res){
       //console.log(result);
     });
   });
-  
+
   };
 
 function getPlays(user_id, res){
@@ -261,6 +259,58 @@ function getPlays(user_id, res){
 
 };
 
+function changeDisplayName(user_id, displayName, res){
+
+  
+
+    var options = {
+      hostname: 'https://eliharkins.auth0.com'
+      port: 80,
+      path: '/api/v2/users/'+ user_id,
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        //'Content-Length': Buffer.byteLength(postData)
+      }
+      body: {
+        'user_metadata': {
+          'displayName': displayName
+        }
+      }
+    };
+
+    var req = http.request(options, (res) => {
+      console.log('STATUS: ' + res.statusCode );
+      console.log('HEADERS: ' + JSON.stringify(res.headers) );
+      res.setEncoding('utf8');
+      res.on('data', (chunk) => {
+        console.log('BODY: ' + chunk);
+      });
+      res.on('end', () => {
+        console.log('No more data in response.')
+      })
+    });
+
+    req.on('error', (e) => {
+      console.log('problem with request: ' + e.message);
+    });
+
+    // write data to request body
+    req.write(postData);
+    req.end();
+
+    res.writeHead(200, {"Accept": "text/html"});
+    res.end(displayName);
+
+};
+
+
+app.get('/secured/changeDisplayName', function(req, res){
+    console.log("changeDisplayName");
+    var displayName = req.body.displayName;
+    changeDisplayName(req.user.sub, displayName, res);
+});
+
 
 app.get('/secured/getPlays', function(req, res){
   console.log("getPlays");
@@ -273,9 +323,7 @@ app.get('/secured/getSongs', function(req, res){
 });
 
 app.get('/secured/getFavGenre', function(req, res) {
-  //res.status(200).send("All good. You only get this message if you're authenticated");
   getGenre(req.user.sub, res);
-  //console.log(req.user.sub);
 });
 
 app.post('/secured/addSong', function(req, res) {
