@@ -262,14 +262,15 @@ function getPlays(user_id, res){
 function changeDisplayName(user_id, displayName, res){
 
     console.log(user_id);
-    var fullPath = '/api/v2/users/' + user_id;
+    var fullPath = '/users/' + user_id;
     var options = {
-      hostname: 'https://eliharkins.auth0.com',
+      hostname: 'https://eliharkins.auth0.com/api/v2',
       //port: 80,
       path: fullPath,
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfX0sImlhdCI6MTQ2OTEzNzg2MiwianRpIjoiNmY3N2FkYzIyMDA1OWVjY2M4NzcyZjM3MzJjY2E1MWEifQ.dxRZ9zpz_MLcO3jzK1wsf9ISmBCXUmeY_fBGdGauiO8'
         //'Content-Length': Buffer.byteLength(postData)
       },
       body: {
