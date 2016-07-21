@@ -269,7 +269,7 @@ function changeDisplayName(user_id, displayName, res){
 
     request({
         url: fullURL, //URL to hit
-        body: {'user_metadata': {'displayName': displayName} }, //Query string data
+        body: "{'user_metadata': {'displayName': displayName} }", //Query string data
         method: 'PATCH', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/json',
