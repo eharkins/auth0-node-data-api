@@ -262,10 +262,10 @@ function getPlays(user_id, res){
 function changeDisplayName(user_id, displayName, res){
 
     console.log(user_id);
-    var fullPath = '/users/' + user_id;
+    var fullPath = '/api/v2/users/' + user_id;
     var options = {
-      hostname: 'https://eliharkins.auth0.com/api/v2',
-      //port: 80,
+      hostname: 'https://eliharkins.auth0.com',
+      //port:,
       path: fullPath,
       method: 'PATCH',
       headers: {
