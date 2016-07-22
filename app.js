@@ -294,7 +294,7 @@ function changeDisplayName(user_id, displayName, res){
 
 };
 
-function changeDisplayName(user_id, displayName, res){
+function getDisplayName(user_id, displayName, res){
 
     console.log(user_id);
     var fullPath = '/api/v2/users/' + user_id;
