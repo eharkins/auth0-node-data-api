@@ -315,12 +315,13 @@ function getDisplayName(user_id, res){
         } else {
             console.log(response.statusCode, body);
             displayName = body;
+            res.writeHead(200, {"Accept": "text/html"});
+            res.end(body);
         }
     });
 
     //back to client
-    res.writeHead(200, {"Accept": "text/html"});
-    res.end(displayName);
+    
     
 };
 
