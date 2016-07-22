@@ -288,45 +288,34 @@ function changeDisplayName(user_id, displayName, res){
         }
     });
 
+    //back to client
+    res.writeHead(200, {"Accept": "text/html"});
+    res.end(displayName);
 
+};
 
+function changeDisplayName(user_id, displayName, res){
 
-    // var options = {
-    //   hostname: 'https://eliharkins.auth0.com',
-    //   port: 0,
-    //   path: fullPath,
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfX0sImlhdCI6MTQ2OTEzNzg2MiwianRpIjoiNmY3N2FkYzIyMDA1OWVjY2M4NzcyZjM3MzJjY2E1MWEifQ.dxRZ9zpz_MLcO3jzK1wsf9ISmBCXUmeY_fBGdGauiO8'
-    //     //'Content-Length': Buffer.byteLength(postData)
-    //   },
-    //   body: {
-    //     'user_metadata': {
-    //       'displayName': displayName
-    //     }
-    //   }
-    // };
+    console.log(user_id);
+    var fullPath = '/api/v2/users/' + user_id;
 
-    // var req = http.request(options, (res) => {
-    //   console.log('STATUS: ' + res.statusCode );
-    //   console.log('HEADERS: ' + JSON.stringify(res.headers) );
-    //   res.setEncoding('utf8');
-    //   res.on('data', (chunk) => {
-    //     console.log('BODY: ' + chunk);
-    //   });
-    //   res.on('end', () => {
-    //     console.log('No more data in response.')
-    //   })
-    // });
+    var fullURL = 'https://eliharkins.auth0.com' + fullPath;
 
-    // req.on('error', (e) => {
-    //   console.log('problem with request: ' + e.message);
-    // });
-
-    // // write data to request body (for auth0 api call)
-    // req.write(postData);
-    // req.end();
+    request({
+        url: fullURL, //URL to hit
+        body: "user_metadata"
+        method: 'GET', //Specify the method
+        headers: { //We can define headers too
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfX0sImlhdCI6MTQ2OTEzNzg2MiwianRpIjoiNmY3N2FkYzIyMDA1OWVjY2M4NzcyZjM3MzJjY2E1MWEifQ.dxRZ9zpz_MLcO3jzK1wsf9ISmBCXUmeY_fBGdGauiO8'
+        }
+    }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        } else {
+            console.log(response.statusCode, body);
+        }
+    });
 
     //back to client
     res.writeHead(200, {"Accept": "text/html"});
@@ -334,6 +323,10 @@ function changeDisplayName(user_id, displayName, res){
 
 };
 
+app.get('/secured/getDisplayName', function(req, res){
+  console.log("getDisplayName");
+  getDisplayName(req.user.sub, res);
+});
 
 app.post('/secured/changeDisplayName', function(req, res){
     console.log("changeDisplayName: ");
