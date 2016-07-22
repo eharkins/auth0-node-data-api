@@ -303,7 +303,7 @@ function changeDisplayName(user_id, displayName, res){
 
     request({
         url: fullURL, //URL to hit
-        body: "user_metadata"
+        body: "user_metadata",
         method: 'GET', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/x-www-form-urlencoded',
