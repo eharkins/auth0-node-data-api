@@ -323,7 +323,7 @@ function changeDisplayName(user_id, displayName, res){
 
 };
 
-app.get('/secured/getDisplayName', function(req, res){
+app.post('/secured/getDisplayName', function(req, res){
   console.log("getDisplayName");
   getDisplayName(req.user.sub, res);
 });
