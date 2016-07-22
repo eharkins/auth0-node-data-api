@@ -294,12 +294,12 @@ function changeDisplayName(user_id, displayName, res){
 
 };
 
-function getDisplayName(user_id, displayName, res){
+function getDisplayName(user_id, res){
 
     console.log(user_id);
-    var fullPath = '/api/v2/users/' + user_id;
+    var displayName = "TEST";
 
-    var fullURL = 'https://eliharkins.auth0.com' + fullPath;
+    var fullURL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id;
 
     request({
         url: fullURL, //URL to hit
@@ -314,13 +314,14 @@ function getDisplayName(user_id, displayName, res){
             console.log(error);
         } else {
             console.log(response.statusCode, body);
+            displayName = body;
         }
     });
 
     //back to client
     res.writeHead(200, {"Accept": "text/html"});
     res.end(displayName);
-
+    
 };
 
 app.post('/secured/getDisplayName', function(req, res){
