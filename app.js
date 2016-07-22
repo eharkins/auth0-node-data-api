@@ -307,7 +307,7 @@ function changeDisplayName(user_id, displayName, res){
         method: 'GET', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfX0sImlhdCI6MTQ2OTEzNzg2MiwianRpIjoiNmY3N2FkYzIyMDA1OWVjY2M4NzcyZjM3MzJjY2E1MWEifQ.dxRZ9zpz_MLcO3jzK1wsf9ISmBCXUmeY_fBGdGauiO8'
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSIsInJlYWQiXX19LCJpYXQiOjE0NjkxNDU3NjcsImp0aSI6IjkxZjZiOWUzZmYyZDI5MmQxNmY3ZTZhZmViNTU5OTZhIn0.g0V4Fv9LMwtHEnrJ3Cct26ozA_lHeZgnujBboLqcTpM'
         }
     }, function(error, response, body){
         if(error) {
