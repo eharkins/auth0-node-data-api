@@ -13,7 +13,7 @@ var request = require('request');
 var pg = require('pg');
 pg.defaults.ssl = true;
 
-var APIManagementKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfX0sImlhdCI6MTQ2OTEzNzg2MiwianRpIjoiNmY3N2FkYzIyMDA1OWVjY2M4NzcyZjM3MzJjY2E1MWEifQ.dxRZ9zpz_MLcO3jzK1wsf9ISmBCXUmeY_fBGdGauiO8';
+var APIManagementKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInJlYWQiLCJ1cGRhdGUiXX19LCJpYXQiOjE0Njk3NDkyNDksImp0aSI6IjlhZmQ1MDk5Mzg2YjZmZjVjZjViNDMzYzA4NDJjYzJjIn0.qHDZ7bMFmbFcTNBDat8uLr2vM3kFKW66m-tDWBHVFfE';
 
 // var options = {
 //     // global event notification;
