@@ -301,7 +301,7 @@ function getDisplayName(user_id, res){
     console.log(user_id);
     var displayName = "TEST";
 
-    var fullURL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id;
+    var fullURL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id + 'fields=user_metadata';
 
     request({
         url: fullURL, //URL to hit
