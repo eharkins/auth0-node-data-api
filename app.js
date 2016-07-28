@@ -280,7 +280,7 @@ function changeDisplayName(user_id, displayName, res){
         method: 'PATCH', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + APIManagementKey;
+            'Authorization': 'Bearer ' + APIManagementKey
         }
     }, function(error, response, body){
         if(error) {
@@ -306,11 +306,10 @@ function getDisplayName(user_id, res){
     request({
         url: fullURL, //URL to hit
         body: "user_metadata",
-        fields: ["user_metadata"],
         method: 'GET', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Bearer ' + APIManagementKey;
+            'Authorization': 'Bearer ' + APIManagementKey
         }
     }, function(error, response, body){
         if(error) {
