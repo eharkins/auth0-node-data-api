@@ -13,6 +13,8 @@ var request = require('request');
 var pg = require('pg');
 pg.defaults.ssl = true;
 
+var APIManagementKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfX0sImlhdCI6MTQ2OTEzNzg2MiwianRpIjoiNmY3N2FkYzIyMDA1OWVjY2M4NzcyZjM3MzJjY2E1MWEifQ.dxRZ9zpz_MLcO3jzK1wsf9ISmBCXUmeY_fBGdGauiO8';
+
 // var options = {
 //     // global event notification;
 //     error: function (error, e) {
@@ -278,7 +280,7 @@ function changeDisplayName(user_id, displayName, res){
         method: 'PATCH', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSJdfX0sImlhdCI6MTQ2OTEzNzg2MiwianRpIjoiNmY3N2FkYzIyMDA1OWVjY2M4NzcyZjM3MzJjY2E1MWEifQ.dxRZ9zpz_MLcO3jzK1wsf9ISmBCXUmeY_fBGdGauiO8'
+            'Authorization': 'Bearer ' + APIManagementKey;
         }
     }, function(error, response, body){
         if(error) {
@@ -304,10 +306,11 @@ function getDisplayName(user_id, res){
     request({
         url: fullURL, //URL to hit
         body: "user_metadata",
+        fields: ["user_metadata"],
         method: 'GET', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInVwZGF0ZSIsInJlYWQiXX19LCJpYXQiOjE0NjkxNDU3NjcsImp0aSI6IjkxZjZiOWUzZmYyZDI5MmQxNmY3ZTZhZmViNTU5OTZhIn0.g0V4Fv9LMwtHEnrJ3Cct26ozA_lHeZgnujBboLqcTpM'
+            'Authorization': 'Bearer ' + APIManagementKey;
         }
     }, function(error, response, body){
         if(error) {
