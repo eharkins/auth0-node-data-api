@@ -306,7 +306,7 @@ function getDisplayName(user_id, res){
     request({
         url: fullURL, //URL to hit
         body: "fields=user_metadata",
-        //fields: ["user_metadata"],
+        fields: "user_metadata",
         method: 'GET', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/x-www-form-urlencoded',
