@@ -301,12 +301,12 @@ function getDisplayName(user_id, res){
     console.log(user_id);
     var displayName = "TEST";
 
-    var fullURL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id;// + '?fields=user_metadata&include_fields=true';
+    var fullURL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id + '?fields=user_metadata&include_fields=true';
 
     request({
         url: fullURL, //URL to hit
-        body: "fields=user_metadata",
-        fields: "user_metadata",
+        //body: "fields=user_metadata",
+        //fields: "user_metadata",
         method: 'GET', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/x-www-form-urlencoded',
