@@ -126,6 +126,7 @@ var users = require('./routes/users');
 var genres = require('./routes/genres');
 var songs = require('./routes/songs');
 var playlists = require('./routes/playlists');
+var displayName = require('./routes/displayName');
 
 
 
@@ -144,193 +145,194 @@ app.use('/secured', authenticate);
 app.use('/genres', authenticate, genres);
 app.use('/songs', authenticate, songs);
 app.use('/playlists', authenticate, playlists);
+app.use('/displayName', authenticate, displayName);
 
 
 
 
-function getSongs(user_id, res){
+// function getSongs(user_id, res){
  
- console.log("getSong method executing");
-  db.connect(process.env.DATABASE_URL, function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting data...');
+//  console.log("getSong method executing");
+//   db.connect(process.env.DATABASE_URL, function(err, client) {
+//   if (err) throw err;
+//   console.log('Connected to postgres! Getting data...');
 
-  client
-    .query('SELECT songname as value FROM songs WHERE user_id = $1', [user_id], function(err, result) {
-      if(err) {
-        return console.error('error running query', err);
-      }
+//   client
+//     .query('SELECT songname as value FROM songs WHERE user_id = $1', [user_id], function(err, result) {
+//       if(err) {
+//         return console.error('error running query', err);
+//       }
 
-      console.log(result.rows);
-      var i = 0;
-      var songs = [];
-      while (result.rows[i] )
-      {
-        songs[i] = result.rows[i].value;
-        console.log(result.rows[i].value);
-        i++;
-      }
-      var song_json = JSON.stringify({Songs:songs});
-      console.log(song_json);
+//       console.log(result.rows);
+//       var i = 0;
+//       var songs = [];
+//       while (result.rows[i] )
+//       {
+//         songs[i] = result.rows[i].value;
+//         console.log(result.rows[i].value);
+//         i++;
+//       }
+//       var song_json = JSON.stringify({Songs:songs});
+//       console.log(song_json);
 
       
-      res.writeHead(200, {"Accept": "application/json"});
-      res.end(song_json);
-      //console.log(result);
-    });
-  });
+//       res.writeHead(200, {"Accept": "application/json"});
+//       res.end(song_json);
+//       //console.log(result);
+//     });
+//   });
 
 
-};
+// };
 
-function queryGenre(user_id, res){
+// function queryGenre(user_id, res){
 	
- console.log("logging works");
-  db.connect(process.env.DATABASE_URL, function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting data...');
+//  console.log("logging works");
+//   db.connect(process.env.DATABASE_URL, function(err, client) {
+//   if (err) throw err;
+//   console.log('Connected to postgres! Getting data...');
 
-  client
-    .query('SELECT fav_genre as value FROM user_data WHERE user_id = $1', [user_id], function(err, result) {
-      console.log(result.rows[0].value);
+//   client
+//     .query('SELECT fav_genre as value FROM user_data WHERE user_id = $1', [user_id], function(err, result) {
+//       console.log(result.rows[0].value);
 
-      if(err) {
-        return console.error('error running query', err);
-      }
-      res.writeHead(200, {"Accept": "text/html"});
-      res.end(result.rows[0].value);
-    });
-  });
+//       if(err) {
+//         return console.error('error running query', err);
+//       }
+//       res.writeHead(200, {"Accept": "text/html"});
+//       res.end(result.rows[0].value);
+//     });
+//   });
 
-};
+// };
 
-function addSong(user_id, song, res){
+// function addSong(user_id, song, res){
 
- console.log("addSong method executing");
-  db.connect(process.env.DATABASE_URL, function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Writing data...');
+//  console.log("addSong method executing");
+//   db.connect(process.env.DATABASE_URL, function(err, client) {
+//   if (err) throw err;
+//   console.log('Connected to postgres! Writing data...');
 
-  client
-    .query('INSERT INTO songs VALUES (100, $1, $2)', [song, user_id], function(err, result) {
-      console.log(JSON.stringify(result));
-      //done();
+//   client
+//     .query('INSERT INTO songs VALUES (100, $1, $2)', [song, user_id], function(err, result) {
+//       console.log(JSON.stringify(result));
+//       //done();
 
-      if(err) {
-        return console.error('error running query', err);
-      }
-      res.writeHead(200, {"Accept": "text/html"});
-      res.end(song);
-      //console.log(result);
-    });
-  });
+//       if(err) {
+//         return console.error('error running query', err);
+//       }
+//       res.writeHead(200, {"Accept": "text/html"});
+//       res.end(song);
+//       //console.log(result);
+//     });
+//   });
 
-  };
+//   };
 
-function getPlays(user_id, res){
+// function getPlays(user_id, res){
  
- console.log("getPlays method executing");
-  db.connect(process.env.DATABASE_URL, function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting data...');
+//  console.log("getPlays method executing");
+//   db.connect(process.env.DATABASE_URL, function(err, client) {
+//   if (err) throw err;
+//   console.log('Connected to postgres! Getting data...');
 
-  client
-    .query('SELECT total_plays as value FROM playlists WHERE user_id = $1', [user_id], function(err, result) {
-      if(err) {
-        return console.error('error running query', err);
-      }
-      var plays = result.rows[0].value;
+//   client
+//     .query('SELECT total_plays as value FROM playlists WHERE user_id = $1', [user_id], function(err, result) {
+//       if(err) {
+//         return console.error('error running query', err);
+//       }
+//       var plays = result.rows[0].value;
 
-      console.log(plays);
+//       console.log(plays);
       
 
       
-      res.writeHead(200, {"Accept": "text/html"});
-      res.end(plays);
-      //console.log(result);
-    });
-  });
+//       res.writeHead(200, {"Accept": "text/html"});
+//       res.end(plays);
+//       //console.log(result);
+//     });
+//   });
 
 
-};
+// };
 
-function changeDisplayName(user_id, displayName, res){
+// function changeDisplayName(user_id, displayName, res){
 
-    console.log(user_id);
-    var fullPath = '/api/v2/users/' + user_id;
+//     console.log(user_id);
+//     var fullPath = '/api/v2/users/' + user_id;
 
-    var fullURL = 'https://eliharkins.auth0.com' + fullPath;
+//     var fullURL = 'https://eliharkins.auth0.com' + fullPath;
 
-    request({
-        url: fullURL, //URL to hit
-        body: {
-          "user_metadata": {
-            "displayName": displayName
-          }
-        },
-        json: true,
-        method: 'PATCH', //Specify the method
-        headers: { //We can define headers too
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + APIManagementKey
-        }
-    }, function(error, response, body){
-        if(error) {
-            console.log(error);
-        } else {
-            console.log(response.statusCode, body);
-        }
-    });
+//     request({
+//         url: fullURL, //URL to hit
+//         body: {
+//           "user_metadata": {
+//             "displayName": displayName
+//           }
+//         },
+//         json: true,
+//         method: 'PATCH', //Specify the method
+//         headers: { //We can define headers too
+//             'Content-Type': 'application/json',
+//             'Authorization': 'Bearer ' + APIManagementKey
+//         }
+//     }, function(error, response, body){
+//         if(error) {
+//             console.log(error);
+//         } else {
+//             console.log(response.statusCode, body);
+//         }
+//     });
 
-    //back to client
-    res.writeHead(200, {"Accept": "text/html"});
-    res.end(displayName);
+//     //back to client
+//     res.writeHead(200, {"Accept": "text/html"});
+//     res.end(displayName);
 
-};
+// };
 
-function getDisplayName(user_id, res){
+// function getDisplayName(user_id, res){
 
-    console.log(user_id);
-    var displayName = "TEST";
+//     console.log(user_id);
+//     var displayName = "TEST";
 
-    var fullURL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id + '?fields=user_metadata&include_fields=true';
+//     var fullURL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id + '?fields=user_metadata&include_fields=true';
 
-    request({
-        url: fullURL, //URL to hit
-        //body: "fields=user_metadata",
-        //fields: "user_metadata",
-        method: 'GET', //Specify the method
-        headers: { //We can define headers too
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Bearer ' + APIManagementKey
-        }
-    }, function(error, response, body){
-        if(error) {
-            console.log(error);
-        } else {
-            console.log(response.statusCode, body);
-            displayName = body;
-            res.writeHead(200, {"Accept": "text/html"});
-            res.end(body);
-        }
-    });
+//     request({
+//         url: fullURL, //URL to hit
+//         //body: "fields=user_metadata",
+//         //fields: "user_metadata",
+//         method: 'GET', //Specify the method
+//         headers: { //We can define headers too
+//             'Content-Type': 'application/x-www-form-urlencoded',
+//             'Authorization': 'Bearer ' + APIManagementKey
+//         }
+//     }, function(error, response, body){
+//         if(error) {
+//             console.log(error);
+//         } else {
+//             console.log(response.statusCode, body);
+//             displayName = body;
+//             res.writeHead(200, {"Accept": "text/html"});
+//             res.end(body);
+//         }
+//     });
 
-    //back to client
+//     //back to client
     
     
-};
+// };
 
-app.post('/secured/getDisplayName', function(req, res){
-  console.log("getDisplayName");
-  getDisplayName(req.user.sub, res);
-});
+// app.post('/secured/getDisplayName', function(req, res){
+//   console.log("getDisplayName");
+//   getDisplayName(req.user.sub, res);
+// });
 
-app.post('/secured/changeDisplayName', function(req, res){
-    console.log("changeDisplayName: ");
-    var displayName = req.body.displayName;
-    console.log(displayName);
-    changeDisplayName(req.user.sub, displayName, res);
-});
+// app.post('/secured/changeDisplayName', function(req, res){
+//     console.log("changeDisplayName: ");
+//     var displayName = req.body.displayName;
+//     console.log(displayName);
+//     changeDisplayName(req.user.sub, displayName, res);
+// });
 
 
 // app.get('/secured/getPlays', function(req, res){
