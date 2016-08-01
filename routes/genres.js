@@ -20,11 +20,16 @@ function queryGenre(user_id, res){
         return console.error('error running query', err);
       }
       res.writeHead(200, {"Accept": "text/html"});
-      res.end(result.rows[0].value);
+      res.send(result.rows[0].value);
     });
   });
 
 };
+
+router.use(function timeLog(req, res, next) {
+  console.log('Time: ', Date.now());
+  next();
+});
 
 
 router.get('/', function(req, res) {
