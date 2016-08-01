@@ -10,8 +10,8 @@ var cors = require('cors');
 var http = require('http');
 var request = require('request');
 
-var pg = require('pg');
-pg.defaults.ssl = true;
+var db = require('pg');
+db.defaults.ssl = true;
 
 var APIManagementKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInJlYWQiLCJ1cGRhdGUiXX19LCJpYXQiOjE0Njk3NDkyNDksImp0aSI6IjlhZmQ1MDk5Mzg2YjZmZjVjZjViNDMzYzA4NDJjYzJjIn0.qHDZ7bMFmbFcTNBDat8uLr2vM3kFKW66m-tDWBHVFfE';
 
@@ -147,7 +147,7 @@ app.get('/ping', function(req, res) {
 function getSongs(user_id, res){
  
  console.log("getSong method executing");
-  pg.connect(process.env.DATABASE_URL, function(err, client) {
+  db.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
   console.log('Connected to postgres! Getting data...');
 
@@ -179,22 +179,10 @@ function getSongs(user_id, res){
 
 };
 
-//console.log("getting data..");
-  //
-  // db.one("SELECT fav_genre AS value FROM user_genres WHERE user_id = $1", user_id )
- //    .then(function (data) {
- //        console.log("Favorite Genre:", data.value);
- //        res.writeHead(200, {"Accept": "text/html"});
- //        res.end(data.value);
- //    })
- //    .catch(function (error) {
- //        console.log("ERROR:", error);
- //    });
-
-function getGenre(user_id, res){
+function queryGenre(user_id, res){
 	
  console.log("logging works");
-  pg.connect(process.env.DATABASE_URL, function(err, client) {
+  db.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
   console.log('Connected to postgres! Getting data...');
 
@@ -215,7 +203,7 @@ function getGenre(user_id, res){
 function addSong(user_id, song, res){
 
  console.log("addSong method executing");
-  pg.connect(process.env.DATABASE_URL, function(err, client) {
+  db.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
   console.log('Connected to postgres! Writing data...');
 
@@ -238,7 +226,7 @@ function addSong(user_id, song, res){
 function getPlays(user_id, res){
  
  console.log("getPlays method executing");
-  pg.connect(process.env.DATABASE_URL, function(err, client) {
+  db.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
   console.log('Connected to postgres! Getting data...');
 
@@ -352,7 +340,7 @@ app.get('/secured/getSongs', function(req, res){
 });
 
 app.get('/secured/getFavGenre', function(req, res) {
-  getGenre(req.user.sub, res);
+   queryGenre(req.user.sub, res);
 });
 
 app.post('/secured/addSong', function(req, res) {
