@@ -36,8 +36,6 @@ var authenticate = jwt({
   audience: process.env.AUTH0_CLIENT_ID
 });
 
-app.use('/', routes);
-app.use('/secured', authenticate);
 app.use('/genres', authenticate, genres);
 app.use('/songs', authenticate, songs);
 app.use('/playlists', authenticate, playlists);
