@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var db = require('pg');
-db.defaults.ssl = true;
+// var db = require('pg');
+// db.defaults.ssl = true;
 
 
 function queryGenre(user_id, res){

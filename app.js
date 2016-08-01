@@ -27,8 +27,6 @@ var songs = require('./routes/songs');
 var playlists = require('./routes/playlists');
 var displayName = require('./routes/displayName');
 
-
-
 dotenv.load();
 
 var authenticate = jwt({
