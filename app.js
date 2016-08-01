@@ -125,6 +125,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var genres = require('./routes/genres');
 var songs = require('./routes/songs');
+var playlists = require('./routes/playlists');
 
 
 
@@ -142,6 +143,7 @@ app.use('/users', users);
 app.use('/secured', authenticate);
 app.use('/genres', authenticate, genres);
 app.use('/songs', authenticate, songs);
+app.use('/playlists', authenticate, songs);
 
 
 
@@ -331,10 +333,10 @@ app.post('/secured/changeDisplayName', function(req, res){
 });
 
 
-app.get('/secured/getPlays', function(req, res){
-  console.log("getPlays");
-  getPlays(req.user.sub, res);
-});
+// app.get('/secured/getPlays', function(req, res){
+//   console.log("getPlays");
+//   getPlays(req.user.sub, res);
+// });
 
 // app.get('/secured/getSongs', function(req, res){
 //   console.log("getSongs");
