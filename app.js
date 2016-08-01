@@ -139,7 +139,7 @@ var authenticate = jwt({
 app.use('/', routes);
 app.use('/users', users);
 app.use('/secured', authenticate);
-app.use('/genres', genres);
+app.use('/genres', authenticate, genres);
 
 
 app.get('/ping', function(req, res) {
