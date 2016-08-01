@@ -143,7 +143,7 @@ app.use('/users', users);
 app.use('/secured', authenticate);
 app.use('/genres', authenticate, genres);
 app.use('/songs', authenticate, songs);
-app.use('/playlists', authenticate, songs);
+app.use('/playlists', authenticate, playlists);
 
 
 
