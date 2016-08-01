@@ -124,6 +124,7 @@ app.set('view engine', 'jade');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var genres = require('./routes/genres');
+var songs = require('./routes/songs');
 
 
 
@@ -140,11 +141,10 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/secured', authenticate);
 app.use('/genres', authenticate, genres);
+app.use('/songs', authenticate, songs);
 
 
-app.get('/ping', function(req, res) {
-  res.send("All good. You don't need to be authenticated to call this");
-});
+
 
 function getSongs(user_id, res){
  
@@ -336,22 +336,22 @@ app.get('/secured/getPlays', function(req, res){
   getPlays(req.user.sub, res);
 });
 
-app.get('/secured/getSongs', function(req, res){
-  console.log("getSongs");
-  getSongs(req.user.sub, res);
-});
+// app.get('/secured/getSongs', function(req, res){
+//   console.log("getSongs");
+//   getSongs(req.user.sub, res);
+// });
 
 // genres.get('/secured/getFavGenre', function(req, res) {
 //    queryGenre(req.user.sub, res);
 // });
 
-app.post('/secured/addSong', function(req, res) {
-  var song = req.body.song;
-  //console.log(req);
-  console.log("REQUEST.BODY.song: " + song);
-  // res.writeHead(200);
-  addSong(req.user.sub, song, res);
-});
+// app.post('/secured/addSong', function(req, res) {
+//   var song = req.body.song;
+//   //console.log(req);
+//   console.log("REQUEST.BODY.song: " + song);
+//   // res.writeHead(200);
+//   addSong(req.user.sub, song, res);
+// });
 
 //var port = process.env.PORT || 3001;
 

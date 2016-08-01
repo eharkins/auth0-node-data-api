@@ -19,7 +19,6 @@ function queryGenre(user_id, res){
       if(err) {
         return console.error('error running query', err);
       }
-      //res.writeHead(200, {"Accept": "text/html"});
       res.send(result.rows[0].value);
     });
   });
@@ -32,12 +31,8 @@ router.use(function timeLog(req, res, next) {
 });
 
 
-router.get('/', function(req, res) {
+router.get('/getFav', function(req, res) {
    queryGenre(req.user.sub, res);
 });
-
-// router.get('/', function(req, res, ) {
-//   res.send('respond with a resource');
-// });
 
 module.exports = router;
