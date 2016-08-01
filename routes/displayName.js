@@ -80,7 +80,7 @@ router.use(function timeLog(req, res, next) {
 });
 
 
-router.get('/get', function(req, res) {
+router.post('/get', function(req, res) {
 	console.log("getDisplayName");
 	getDisplayName(req.user.sub, res);
 });
