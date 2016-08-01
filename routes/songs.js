@@ -31,9 +31,7 @@ function getSongs(user_id, res){
       console.log(song_json);
 
       
-      //res.writeHead(200, {"Accept": "application/json"});
       res.send(song_json);
-      //console.log(result);
     });
   });
 
@@ -50,14 +48,11 @@ function addSong(user_id, song, res){
   client
     .query('INSERT INTO songs VALUES (100, $1, $2)', [song, user_id], function(err, result) {
       console.log(JSON.stringify(result));
-      //done();
 
       if(err) {
         return console.error('error running query', err);
       }
-      //res.writeHead(200, {"Accept": "text/html"});
       res.send(song);
-      //console.log(result);
     });
   });
 
@@ -75,9 +70,6 @@ router.get('/get', function(req, res) {
 
 router.post('/add', function(req, res) {
   var song = req.body.song;
-  //console.log(req);
-  console.log("REQUEST.BODY.song: " + song);
-  // res.writeHead(200);
   addSong(req.user.sub, song, res);
 });
 

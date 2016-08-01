@@ -20,8 +20,7 @@ function getPlays(user_id, res){
       var plays = result.rows[0].value;
 
       console.log(plays);
-      
-      //res.writeHead(200, {"Accept": "text/html"});
+
       res.send(plays);
     });
   });
@@ -36,7 +35,6 @@ router.use(function timeLog(req, res, next) {
 
 
 router.get('/getPlays', function(req, res) {
-  console.log("getPlays");
   getPlays(req.user.sub, res);
 });
 

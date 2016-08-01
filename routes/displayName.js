@@ -11,10 +11,7 @@ var APIManagementKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTV
 
 function changeDisplayName(user_id, displayName, res){
 
-    console.log(user_id);
-    var fullPath = '/api/v2/users/' + user_id;
-
-    var fullURL = 'https://eliharkins.auth0.com' + fullPath;
+    var URL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id;
 
     request({
         url: fullURL, //URL to hit
@@ -37,23 +34,16 @@ function changeDisplayName(user_id, displayName, res){
         }
     });
 
-    //back to client
-    //res.writeHead(200, {"Accept": "text/html"});
     res.send(displayName);
 
 };
 
 function getDisplayName(user_id, res){
 
-    console.log(user_id);
-    var displayName = "TEST";
-
-    var fullURL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id + '?fields=user_metadata&include_fields=true';
+    var URL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id + '?fields=user_metadata&include_fields=true';
 
     request({
         url: fullURL, //URL to hit
-        //body: "fields=user_metadata",
-        //fields: "user_metadata",
         method: 'GET', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -65,12 +55,9 @@ function getDisplayName(user_id, res){
         } else {
             console.log(response.statusCode, body);
             displayName = body;
-            //res.writeHead(200, {"Accept": "text/html"});
             res.send(body);
         }
     });
-
-    //back to client
     
 };
 
@@ -86,9 +73,7 @@ router.post('/get', function(req, res) {
 });
 
 router.post('/change', function(req, res){
-    console.log("changeDisplayName: ");
     var displayName = req.body.displayName;
-    console.log(displayName);
     changeDisplayName(req.user.sub, displayName, res);
 });
 
