@@ -19,7 +19,7 @@ function queryGenre(user_id, res){
       if(err) {
         return console.error('error running query', err);
       }
-      res.writeHead(200, {"Accept": "text/html"});
+      //res.writeHead(200, {"Accept": "text/html"});
       res.send(result.rows[0].value);
     });
   });
