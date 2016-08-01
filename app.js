@@ -139,7 +139,7 @@ var authenticate = jwt({
 app.use('/', routes);
 app.use('/users', users);
 app.use('/secured', authenticate);
-app.use('/genres', authenticate, genres);
+app.use('/genres', genres);
 
 
 app.get('/ping', function(req, res) {
@@ -341,9 +341,9 @@ app.get('/secured/getSongs', function(req, res){
   getSongs(req.user.sub, res);
 });
 
-genres.get('/secured/getFavGenre', function(req, res) {
-   queryGenre(req.user.sub, res);
-});
+// genres.get('/secured/getFavGenre', function(req, res) {
+//    queryGenre(req.user.sub, res);
+// });
 
 app.post('/secured/addSong', function(req, res) {
   var song = req.body.song;
