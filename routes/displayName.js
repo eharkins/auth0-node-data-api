@@ -14,7 +14,7 @@ function changeDisplayName(user_id, displayName, res){
     var URL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id;
 
     request({
-        url: fullURL, //URL to hit
+        url: URL, //URL to hit
         body: {
           "user_metadata": {
             "displayName": displayName
@@ -43,7 +43,7 @@ function getDisplayName(user_id, res){
     var URL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id + '?fields=user_metadata&include_fields=true';
 
     request({
-        url: fullURL, //URL to hit
+        url: URL, //URL to hit
         method: 'GET', //Specify the method
         headers: { //We can define headers too
             'Content-Type': 'application/x-www-form-urlencoded',
