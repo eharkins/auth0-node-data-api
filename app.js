@@ -8,8 +8,8 @@ var jwt = require('express-jwt');
 var cors = require('cors');
 var http = require('http');
 var request = require('request');
-
 var db = require('pg');
+
 db.defaults.ssl = true;
 
 var app = express();
