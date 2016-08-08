@@ -8,7 +8,6 @@ db.defaults.ssl = true;
 
 var APIManagementKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3emxWQTVyTElDdlVFcnpGZXpobXhOVUROZVZPNlhiZCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInJlYWQiLCJ1cGRhdGUiXX19LCJpYXQiOjE0Njk3NDkyNDksImp0aSI6IjlhZmQ1MDk5Mzg2YjZmZjVjZjViNDMzYzA4NDJjYzJjIn0.qHDZ7bMFmbFcTNBDat8uLr2vM3kFKW66m-tDWBHVFfE';
 
-
 function changeDisplayName(user_id, displayName, res){
 
     var URL = 'https://eliharkins.auth0.com/api/v2/users/' + user_id;
@@ -62,13 +61,11 @@ function getDisplayName(user_id, res){
 };
 
 router.use(function timeLog(req, res, next) {
-  console.log('Time: ', Date.now());
   next();
 });
 
 
 router.post('/get', function(req, res) {
-	console.log("getDisplayName");
 	getDisplayName(req.user.sub, res);
 });
 

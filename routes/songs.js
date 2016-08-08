@@ -7,30 +7,22 @@ db.defaults.ssl = true;
 
 function getSongs(user_id, res){
  
- console.log("getSong method executing");
   db.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
-  console.log('Connected to postgres! Getting data...');
 
   client
     .query('SELECT songname as value FROM songs WHERE user_id = $1', [user_id], function(err, result) {
       if(err) {
         return console.error('error running query', err);
       }
-
-      console.log(result.rows);
       var i = 0;
       var songs = [];
       while (result.rows[i] )
       {
         songs[i] = result.rows[i].value;
-        console.log(result.rows[i].value);
         i++;
       }
-      var song_json = JSON.stringify({Songs:songs});
-      console.log(song_json);
-
-      
+      var song_json = JSON.stringify({Songs:songs});      
       res.send(song_json);
     });
   });
@@ -40,14 +32,11 @@ function getSongs(user_id, res){
 
 function addSong(user_id, song, res){
 
- console.log("addSong method executing");
   db.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
-  console.log('Connected to postgres! Writing data...');
 
   client
     .query('INSERT INTO songs VALUES (100, $1, $2)', [song, user_id], function(err, result) {
-      console.log(JSON.stringify(result));
 
       if(err) {
         return console.error('error running query', err);
@@ -56,10 +45,9 @@ function addSong(user_id, song, res){
     });
   });
 
-  };
+};
 
 router.use(function timeLog(req, res, next) {
-  console.log('Time: ', Date.now());
   next();
 });
 

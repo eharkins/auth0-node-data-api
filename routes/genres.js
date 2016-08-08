@@ -4,17 +4,13 @@ var router = express.Router();
 var db = require('pg');
 db.defaults.ssl = true;
 
-
 function queryGenre(user_id, res){
 	
- console.log("logging works");
   db.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
-  console.log('Connected to postgres! Getting data...');
 
   client
     .query('SELECT fav_genre as value FROM user_data WHERE user_id = $1', [user_id], function(err, result) {
-      console.log(result.rows[0].value);
 
       if(err) {
         return console.error('error running query', err);
@@ -26,10 +22,8 @@ function queryGenre(user_id, res){
 };
 
 router.use(function timeLog(req, res, next) {
-  console.log('Time: ', Date.now());
   next();
 });
-
 
 router.get('/getFav', function(req, res) {
    queryGenre(req.user.sub, res);
